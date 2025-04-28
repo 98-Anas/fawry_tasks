@@ -4,10 +4,15 @@
 function show_help() {
     echo "Usage: $0 [OPTIONS] PATTERN [FILE]"
     echo "Search for PATTERN in FILE (case-insensitive)"
+    echo ""
     echo "Options:"
-    echo "  -n  show line numbers"
-    echo "  -v  invert match (show non-matching lines)"
-    echo "  -h  show this help"
+    echo "  -n         show line numbers"
+    echo "  -v         invert match (show non-matching lines)"
+    echo "  -h, --help show this help"
+    echo ""
+    echo "Author:"
+    echo "  Written by [Anas Ayman Elgalad]"
+    echo "  GitHub: [https://github.com/98-Anas]"
     exit 0
 }
 
