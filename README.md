@@ -2,6 +2,7 @@
 
 ## **📌 Overview**  
 `mygrep.sh` is a simplified, Bash-based implementation of the `grep` command. It performs case-insensitive pattern searches in text files and supports basic filtering options.  
+![image](https://github.com/user-attachments/assets/eca0da1e-8c71-4cb0-b646-444e3ef552f2)
 
 ---
 
