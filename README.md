@@ -2,7 +2,6 @@
 
 ## **📌 Overview**
 `mygrep.sh` is a Bash script that mimics basic functionality of the grep command with support for case-insensitive searching and optional flags.
-![image](https://github.com/user-attachments/assets/eca0da1e-8c71-4cb0-b646-444e3ef552f2)
 
 ---
 
@@ -21,69 +20,10 @@
 ```bash
 ./mygrep.sh PATTERN [FILE]
 ```
-**Example:**  
-```bash
-./mygrep.sh hello testfile.txt
-```
-**Output:**  
-```
-Hello world
-HELLO AGAIN
-```
-
-### **Show Line Numbers (`-n`)**  
-```bash
-./mygrep.sh -n hello testfile.txt
-```
-**Output:**  
-```
-1:Hello world
-4:HELLO AGAIN
-```
-
-### **Invert Match (`-v`)**  
-```bash
-./mygrep.sh -v hello testfile.txt
-```
-**Output:**  
-```
-This is a test
-another test line
-Don't match this line
-Testing one two three
-```
-
 ### **Combined Flags (`-nv` or `-vn`)**  
 ```bash
-./mygrep.sh -vn hello testfile.txt
+./mygrep.sh -vn PATTERN testfile.txt
 ```
-**Output:**  
-```
-2:This is a test
-3:another test line
-5:Don't match this line
-6:Testing one two three
-```
-
-### **Help Menu (`-h` or `--help`)**  
-```bash
-./mygrep.sh -h
-```
-**Output:**  
-```
-Usage: ./mygrep.sh [OPTIONS] PATTERN [FILE]
-Search for PATTERN in FILE (case-insensitive)
-
-Options:
-  -n         show line numbers
-  -v         invert match (show non-matching lines)
-  -h, --help show this help
-
-Author:
-  Written by [Anas Ayman Elgalad]
-  GitHub: [https://github.com/98-Anas]
-```
-
 ---
 
 ## **🧠 Reflective Section**  
@@ -119,12 +59,7 @@ Testing one two three
 ```
 
 ### **Expected Outputs**  
-| Command | Expected Output |
-|---------|----------------|
-| `./mygrep.sh hello testfile.txt` | `Hello world`<br>`HELLO AGAIN` |
-| `./mygrep.sh -n hello testfile.txt` | `1:Hello world`<br>`4:HELLO AGAIN` |
-| `./mygrep.sh -vn hello testfile.txt` | `2:This is a test`<br>`3:another test line`<br>`5:Don't match this line`<br>`6:Testing one two three` |
-| `./mygrep.sh -v testfile.txt` | `Error: Missing search pattern` |
+![image](https://github.com/user-attachments/assets/eca0da1e-8c71-4cb0-b646-444e3ef552f2)
 
 ---
 
@@ -148,7 +83,7 @@ Testing one two three
 ## **📜 License**  
 This script is open-source and free to use. Modify and distribute as needed.  
 
-**Author:** [Anas Ayman Elgalad](https://github.com/98-Anas)  
+Made by: Anas Ayman Elgalad
 
 ---
 
