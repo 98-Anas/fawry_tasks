@@ -1,7 +1,7 @@
 # **Custom Command Task - Mini Grep Command**  
 
-## **📌 Overview**  
-`mygrep.sh` is a simplified, Bash-based implementation of the `grep` command. It performs case-insensitive pattern searches in text files and supports basic filtering options.  
+## **📌 Overview**
+`mygrep.sh` is a Bash script that mimics basic functionality of the grep command with support for case-insensitive searching and optional flags.
 ![image](https://github.com/user-attachments/assets/eca0da1e-8c71-4cb0-b646-444e3ef552f2)
 
 ---
