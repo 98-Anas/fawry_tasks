@@ -59,7 +59,7 @@ Testing one two three
 ```
 
 ### **Expected Outputs**  
-![image](https://github.com/user-attachments/assets/eca0da1e-8c71-4cb0-b646-444e3ef552f2)
+![image](https://github.com/user-attachments/assets/131a5d1e-1830-488c-bf73-9fee1b00ebb9)
 
 ---
 
