@@ -1,132 +1,27 @@
-# **Custom Command Task - Mini Grep Command**  
+# ** Fawry Tasks **  
 
-## **📌 Overview**  
-`mygrep.sh` is a simplified, Bash-based implementation of the `grep` command. It performs case-insensitive pattern searches in text files and supports basic filtering options.  
-![image](https://github.com/user-attachments/assets/eca0da1e-8c71-4cb0-b646-444e3ef552f2)
+# Task(1) mygrep.sh - A Simple Pattern Matching Script
 
----
+## Overview
+`mygrep.sh` is a Bash script that searches for patterns in files or standard input. It provides basic functionality similar to the `grep` command, with support for case-insensitive matching and some common options.
 
-## **🚀 Features**  
-✔ **Case-insensitive search** (`hello` matches `HELLO`)  
-✔ **Line numbers** (`-n` flag)  
-✔ **Inverted match** (`-v` flag, prints non-matching lines)  
-✔ **Combined flags** (`-nv` or `-vn` works like `-n -v`)  
-✔ **Error handling** (missing file, missing pattern)  
-✔ **Help menu** (`-h` or `--help`)  
+![alt text](image.png)
 
----
+## Features
+- Search for patterns in files or standard input
+- Case-insensitive pattern matching
+- Option to display line numbers with matches
+- Option to invert matches (show non-matching lines)
 
-## **📋 Usage**  
-### **Basic Search**  
-```bash
-./mygrep.sh PATTERN [FILE]
+## Usage
 ```
-**Example:**  
-```bash
-./mygrep.sh hello testfile.txt
-```
-**Output:**  
-```
-Hello world
-HELLO AGAIN
+./mygrep.sh [OPTIONS] PATTERN [FILE]
 ```
 
-### **Show Line Numbers (`-n`)**  
-```bash
-./mygrep.sh -n hello testfile.txt
-```
-**Output:**  
-```
-1:Hello world
-4:HELLO AGAIN
-```
-
-### **Invert Match (`-v`)**  
-```bash
-./mygrep.sh -v hello testfile.txt
-```
-**Output:**  
-```
-This is a test
-another test line
-Don't match this line
-Testing one two three
-```
-
-### **Combined Flags (`-nv` or `-vn`)**  
-```bash
-./mygrep.sh -vn hello testfile.txt
-```
-**Output:**  
-```
-2:This is a test
-3:another test line
-5:Don't match this line
-6:Testing one two three
-```
-
-### **Help Menu (`-h` or `--help`)**  
-```bash
-./mygrep.sh -h
-```
-**Output:**  
-```
-Usage: ./mygrep.sh [OPTIONS] PATTERN [FILE]
-Search for PATTERN in FILE (case-insensitive)
-
-Options:
-  -n         show line numbers
-  -v         invert match (show non-matching lines)
-  -h, --help show this help
-
-Author:
-  Written by [Anas Ayman Elgalad]
-  GitHub: [https://github.com/98-Anas]
-```
-
----
-
-## **🧠 Reflective Section**  
-
-### **1. Argument Handling**  
-- The script uses a `while` loop with `case` statements to parse options (`-n`, `-v`, `-h`).  
-- Combined flags (`-nv`) are split into individual options.  
-- The first non-option argument is treated as the `PATTERN`, and the second as the `FILE`.  
-
-### **2. Potential Improvements (Regex & More Flags)**  
-To support **regex**, **case-sensitive search (`-i`)**, **count matches (`-c`)**, or **list files (`-l`)**, we could:  
-- Use `grep -E` for regex instead of Bash pattern matching.  
-- Add `-i` to toggle case sensitivity.  
-- Add a counter for `-c` and print only the count.  
-- For `-l`, track matching files in a multi-file search.  
-
-### **3. Hardest Part to Implement**  
-**Handling combined flags (`-nv`)** was tricky because:  
-- Bash doesn’t natively split `-nv` into `-n -v`.  
-- The solution involved checking each character in `-*` flags.  
-
----
-
-## **🔧 Testing**  
-### **Test File (`testfile.txt`)**  
-```
-Hello world
-This is a test
-another test line
-HELLO AGAIN
-Don't match this line
-Testing one two three
-```
-
-### **Expected Outputs**  
-| Command | Expected Output |
-|---------|----------------|
-| `./mygrep.sh hello testfile.txt` | `Hello world`<br>`HELLO AGAIN` |
-| `./mygrep.sh -n hello testfile.txt` | `1:Hello world`<br>`4:HELLO AGAIN` |
-| `./mygrep.sh -vn hello testfile.txt` | `2:This is a test`<br>`3:another test line`<br>`5:Don't match this line`<br>`6:Testing one two three` |
-| `./mygrep.sh -v testfile.txt` | `Error: Missing search pattern` |
-
----
+### Options
+- `-n` : Show line numbers with matching lines
+- `-v` : Invert match (show lines that don't contain the pattern)
+- `-h` : Show help information
 
 ## **📥 Installation**  
 1. **Clone the repository**  
@@ -145,16 +40,58 @@ Testing one two three
 
 ---
 
+### Examples
+1. Search for "error" in a file:
+   ```
+   ./mygrep.sh error logfile.txt
+   ```
+
+2. Search with line numbers:
+   ```
+   ./mygrep.sh -n warning messages.log
+   ```
+
+3. Search for lines that don't contain "success":
+   ```
+   ./mygrep.sh -v success results.txt
+   ```
+
+4. Read from standard input:
+   ```
+   cat data.txt | ./mygrep.sh important
+   ```
+
+## Error Handling
+The script handles several error cases:
+- Missing search pattern
+- File not found
+- Too many arguments
+- Invalid options
+- Missing arguments for options
+
+When errors occur, the script displays a helpful message and exits with an appropriate error code.
+
+## Challenges and Solutions
+- **Pattern Matching**: The script performs case-insensitive matching by converting both the line and pattern to lowercase before comparison.
+  
+- **Input Handling**: The script can accept input either from a file or standard input, requiring careful handling of different input sources.
+
+- **Option Parsing**: The script uses `getopts` to handle command-line options, including combinations like `-vn` or `-nv`.
+
+- **Error Management**: Different error conditions are handled with specific error codes and messages to help users understand what went wrong.
+
+## Technical Notes
+1. **Argument Processing**: The script first checks for `--help`, then processes options with `getopts`, and finally validates the remaining arguments.
+
+2. **Extending Functionality**: To support regular expressions or additional options like `-i`, `-c`, or `-l`, the script would need:
+   - Modified pattern matching to use regex instead of simple substring search
+   - Additional option handling in the `getopts` loop
+   - New functions to implement counting or filename-only output
+
+3. **Implementation Challenges**: The most difficult part was handling both file input and standard input correctly while maintaining all the error checking. This required careful ordering of the argument validation steps.
+
 ## **📜 License**  
 This script is open-source and free to use. Modify and distribute as needed.  
 
-**Author:** [Anas Ayman Elgalad](https://github.com/98-Anas)  
-
----
-
-### **🎯 Final Notes**  
-- The script mimics `grep`'s basic functionality.  
-- Future improvements could include regex, multi-file search, and more flags.  
-- Contributions are welcome! 🚀  
-
-**Happy coding!** 💻🔍
+## Author
+Written by Anas Ayman Elgalad  

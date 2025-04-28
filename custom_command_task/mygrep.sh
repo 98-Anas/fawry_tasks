@@ -8,19 +8,30 @@ function show_help() {
     echo "Options:"
     echo "  -n         show line numbers"
     echo "  -v         invert match (show non-matching lines)"
-    echo "  -h, --help show this help"
-    echo ""
+    echo "  -h         show help"
     echo "Author:"
     echo "  Written by [Anas Ayman Elgalad]"
     echo "  GitHub: [https://github.com/98-Anas]"
     exit 0
 }
 
-# Function to handle errors
+# Function to handle errors with error codes
 function handle_error() {
-    echo "Error: $1" >&2
-    echo "Usage: $0 [OPTIONS] PATTERN [FILE]" >&2
-    exit 1
+    local error_code=$1
+    local message=$2
+    
+    case $error_code in
+        1) echo "Error: Missing search pattern" >&2 ;;
+        2) echo "Error: File '$message' not found" >&2 ;;
+        3) echo "Error: Too many arguments" >&2 ;;
+        4) echo "Error: Invalid option -$message" >&2 ;;
+        5) echo "Error: Missing argument for option -$message" >&2 ;;
+        6) echo "Error: Unknown option --$message" >&2 ;;
+        *) echo "Error: $message" >&2 ;;
+    esac
+    
+    echo "Try '$0 -h' for more information" >&2
+    exit $error_code
 }
 
 # Function to process the input file/stream
@@ -66,60 +77,45 @@ invert_match=0
 pattern=""
 filename=""
 
-# Parse command line arguments
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        -n)
-            line_numbers=1
-            shift
-            ;;
-        -v)
-            invert_match=1
-            shift
-            ;;
-        -h|--help)
-            show_help
-            ;;
-        -*)
-            if [[ "$1" == *"n"* ]]; then
-                line_numbers=1
-            fi
-            if [[ "$1" == *"v"* ]]; then
-                invert_match=1
-            fi
-            shift
-            ;;
-        *)
-            # First non-option argument is pattern
-            if [[ -z "$pattern" ]]; then
-                pattern="$1"
-            # Second non-option argument is filename
-            elif [[ -z "$filename" ]]; then
-                filename="$1"
-                # Check if the filename exists immediately
-                if [[ ! -f "$filename" ]]; then
-                    handle_error "File '$filename' not found"
-                fi
-            else
-                handle_error "Too many arguments"
-            fi
-            shift
-            ;;
-    esac
+# Check for --help before getopts
+for arg in "$@"; do
+    if [[ "$arg" == "--help" ]]; then
+        show_help
+    fi
 done
 
-# Validate input
-if [[ -z "$pattern" ]]; then
-    handle_error "Missing search pattern"
+# Parse options using getopts
+while getopts ":nvh" opt; do
+    case $opt in
+        n) line_numbers=1 ;;
+        v) invert_match=1 ;;
+        h) show_help ;;
+        :) handle_error 5 "$OPTARG" ;;
+        \?) handle_error 4 "$OPTARG" ;;
+    esac
+done
+shift $((OPTIND-1))
+
+# Validate remaining arguments
+if [[ $# -lt 1 ]]; then
+    handle_error 1
 fi
 
-# Set input source (file or stdin)
-if [[ -n "$filename" ]]; then
+pattern="$1"
+shift
+
+if [[ $# -gt 0 ]]; then
+    filename="$1"
+    if [[ ! -f "$filename" ]]; then
+        handle_error 2 "$filename"
+    fi
+    if [[ $# -gt 1 ]]; then
+        handle_error 3
+    fi
     input_source="$filename"
 else
-    # If no filename provided but pattern might have been mistaken for filename
     if [[ -f "$pattern" ]]; then
-        handle_error "Missing search pattern (did you mean to search in file '$pattern'?)"
+        handle_error 1
     fi
     input_source="/dev/stdin"
 fi
