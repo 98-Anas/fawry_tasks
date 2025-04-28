@@ -220,12 +220,6 @@ Attempted connection to the correct IP, though the service was unreachable (sepa
 3. /etc/hosts provides a valuable troubleshooting tool and temporary solution
 4. systemd-resolved configuration should be verified
 
-## Recommended Actions 
-
-1. Add proper DNS records for internal.example.com to the internal DNS servers
-2. Consider implementing a local DNS caching resolver for better performance
-
-
 ![step_8](https://github.com/user-attachments/assets/2332e95d-3484-4d28-9d59-9a7c0a3c4775)
 
 ## Important Commands Used
