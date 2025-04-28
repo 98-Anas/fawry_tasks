@@ -94,3 +94,18 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+# Validate input
+if [[ -z "$pattern" ]]; then
+    handle_error "Missing search pattern"
+fi
+
+if [[ -n "$filename" && ! -f "$filename" ]]; then
+    handle_error "File '$filename' not found"
+fi
+
+# Set input source (file or stdin)
+input_source="${filename:-/dev/stdin}"
+
+# Process the input
+process_input
