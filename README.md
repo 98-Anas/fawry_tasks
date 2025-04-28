@@ -4,8 +4,7 @@
 
 ## Overview
 `mygrep.sh` is a Bash script that searches for patterns in files or standard input. It provides basic functionality similar to the `grep` command, with support for case-insensitive matching and some common options.
-
-![Implementation.png](https://github.com/98-Anas/fawry_tasks/blob/main/Implementation.png)
+![image](https://github.com/user-attachments/assets/687473fb-0c49-4635-93ac-74d46af5cb09)
 
 ## Features
 - Search for patterns in files or standard input
@@ -17,7 +16,7 @@
 ```
 ./mygrep.sh [OPTIONS] PATTERN [FILE]
 ```
-
+![Implementation.png](https://github.com/98-Anas/fawry_tasks/blob/main/Implementation.png)
 ### Options
 - `-n` : Show line numbers with matching lines
 - `-v` : Invert match (show lines that don't contain the pattern)
