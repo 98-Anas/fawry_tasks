@@ -1,4 +1,4 @@
-# ** Fawry Tasks **  
+# **Fawry Tasks**  
 
 # Task(1) mygrep.sh - A Simple Pattern Matching Script
 
@@ -90,7 +90,7 @@ When errors occur, the script displays a helpful message and exits with an appro
 
 3. **Implementation Challenges**: The most difficult part was handling both file input and standard input correctly while maintaining all the error checking. This required careful ordering of the argument validation steps.
 
-## ** License **  
+## **License**  
 This script is open-source and free to use. Modify and distribute as needed.  
 
 ## Author
