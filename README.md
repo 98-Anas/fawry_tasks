@@ -208,7 +208,8 @@ Attempted connection to the correct IP, though the service was unreachable (sepa
 
 ## Final Resolution
 
-The issue was resolved by:
+
+  Resolving the issue by those attempts:
 1. Modifying name resolution order to check /etc/hosts first
 2. Adding a static entry to /etc/hosts for immediate resolution
 3. Configuring systemd-resolved to use the correct internal DNS server
@@ -216,15 +217,18 @@ The issue was resolved by:
 ## Lessons Learned
 
 1. Internal domains must be properly registered in internal DNS servers
-2. The resolution order in nsswitch.conf can significantly impact connectivity
+2. The resolution order in nsswitch.conf can impact connectivity
 3. /etc/hosts provides a valuable troubleshooting tool and temporary solution
-4. systemd-resolved configuration should be verified when using Ubuntu
+4. systemd-resolved configuration should be verified
 
 ## Recommended Follow-up Actions
 
 1. Add proper DNS records for internal.example.com to the internal DNS servers
 2. Document the internal DNS requirements for all systems
 3. Consider implementing a local DNS caching resolver for better performance
+
+
+![step_8](https://github.com/user-attachments/assets/2332e95d-3484-4d28-9d59-9a7c0a3c4775)
 
 ## Important Commands Used
 
