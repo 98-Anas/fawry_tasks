@@ -90,10 +90,18 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         *)
+            # First non-option argument is pattern
             if [[ -z "$pattern" ]]; then
                 pattern="$1"
-            else
+            # Second non-option argument is filename
+            elif [[ -z "$filename" ]]; then
                 filename="$1"
+                # Check if the filename exists immediately
+                if [[ ! -f "$filename" ]]; then
+                    handle_error "File '$filename' not found"
+                fi
+            else
+                handle_error "Too many arguments"
             fi
             shift
             ;;
@@ -105,12 +113,16 @@ if [[ -z "$pattern" ]]; then
     handle_error "Missing search pattern"
 fi
 
-if [[ -n "$filename" && ! -f "$filename" ]]; then
-    handle_error "File '$filename' not found"
-fi
-
 # Set input source (file or stdin)
-input_source="${filename:-/dev/stdin}"
+if [[ -n "$filename" ]]; then
+    input_source="$filename"
+else
+    # If no filename provided but pattern might have been mistaken for filename
+    if [[ -f "$pattern" ]]; then
+        handle_error "Missing search pattern (did you mean to search in file '$pattern'?)"
+    fi
+    input_source="/dev/stdin"
+fi
 
 # Process the input
 process_input
