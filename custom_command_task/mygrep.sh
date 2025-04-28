@@ -54,3 +54,43 @@ function print_line() {
         echo "$line"
     fi
 }
+
+# Initialize variables
+line_numbers=0
+invert_match=0
+pattern=""
+filename=""
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -n)
+            line_numbers=1
+            shift
+            ;;
+        -v)
+            invert_match=1
+            shift
+            ;;
+        -h|--help)
+            show_help
+            ;;
+        -*)
+            if [[ "$1" == *"n"* ]]; then
+                line_numbers=1
+            fi
+            if [[ "$1" == *"v"* ]]; then
+                invert_match=1
+            fi
+            shift
+            ;;
+        *)
+            if [[ -z "$pattern" ]]; then
+                pattern="$1"
+            else
+                filename="$1"
+            fi
+            shift
+            ;;
+    esac
+done
